@@ -83,7 +83,6 @@ th { background-color: #333; }
     <input type="text" id="loginEmail" placeholder="Your username">
     <br>
     <button onclick="beginGame()">START GAME</button>
-    goTORoom("room1");
     <br><br>
     <button onclick="showLeaderboard()">View Leaderboard</button>
 </div>
@@ -136,7 +135,6 @@ th { background-color: #333; }
 <h1>Escape Room 3</h1>
 
 <style>
-/* Game box */
 #game {
   position: relative;
   width: 700px;
@@ -144,14 +142,14 @@ th { background-color: #333; }
   margin-top: 20px;
 }
 
-/* Target spots (no outline now) */
+/* Targets (no outline now) */
 .target {
   width: 80px;
   height: 80px;
   position: absolute;
 }
 
-/* Draggable blocks (all black) */
+/* Blocks */
 .block {
   width: 80px;
   height: 80px;
@@ -160,21 +158,11 @@ th { background-color: #333; }
   border-radius: 10px;
   background: black;
 }
-
-/* Submit button */
-#submitBtn{
-  margin-top:20px;
-  padding:10px 25px;
-  font-size:16px;
-  display:none;
-  cursor:pointer;
-}
 </style>
 
 <h2>Figure it out your smart enough</h2>
 
 <div id="game">
-
   <!-- Targets -->
   <div class="target" data-color="black" style="left:500px; top:50px;"></div>
   <div class="target" data-color="grey" style="left:500px; top:150px;"></div>
@@ -186,10 +174,9 @@ th { background-color: #333; }
   <div class="block" data-color="grey" style="left:150px; top:200px;"></div>
   <div class="block" data-color="green" style="left:80px; top:320px;"></div>
   <div class="block" data-color="purple" style="left:200px; top:120px;"></div>
-
 </div>
 
-<button id="submitBtn" onclick="goToRoom('room4')">Submit</button>
+<button id="room3Submit" style="display:none;" onclick="goToRoom('room4')">Submit</button>
 
 <script>
 const blocks = document.querySelectorAll("#room3 .block");
@@ -242,7 +229,7 @@ blocks.forEach(block => {
 
 function checkWin() {
   if (completed === blocks.length) {
-      document.getElementById("submitBtn").style.display = "inline-block";
+    document.getElementById("room3Submit").style.display = "inline-block";
   }
 }
 </script>
@@ -497,13 +484,3 @@ document.addEventListener("keydown", function(event) {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
