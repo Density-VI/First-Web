@@ -418,7 +418,11 @@ document.addEventListener("keypress", resetActivityTimer);
 document.addEventListener("click", resetActivityTimer);
 
 function winGame() {
+
+    if(document.getElementById("room1").classList.contains("hidden")) return;
+
     document.getElementById("passedScreen").style.display = "flex";
+
     setTimeout(() => {
         goToRoom("room2");
         document.getElementById("passedScreen").style.display = "none";
@@ -437,6 +441,9 @@ function checkAnswer() {
 
 /* ------------------- ROOM NAVIGATION ------------------- */
 function goToRoom(nextRoomId) {
+
+    clearTimeout(inactivityTimer); // stop room1 idle timer
+
     document.querySelectorAll(".room").forEach(r => r.classList.add("hidden"));
     document.getElementById(nextRoomId).classList.remove("hidden");
 
@@ -533,7 +540,7 @@ const r = t.getBoundingClientRect();
 
 const overlap = !(b.right<r.left||b.left>r.right||b.bottom<r.top||b.top>r.bottom);
 
-if(overlap){
+if(overlap && active.dataset.locked !== "true"){
 
 active.style.left = t.style.left;
 active.style.top = t.style.top;
@@ -579,9 +586,16 @@ function resetBossStill() {
 }
 
 function unlockBossPhase2() {
+
     bossPhase = 2;
+
+    document.removeEventListener("mousemove", resetBossStill);
+    document.removeEventListener("keydown", resetBossStill);
+    document.removeEventListener("click", resetBossStill);
+
     document.getElementById("bossMessage").innerText =
         "You have mastered patience.";
+
     document.getElementById("bossPhase2").classList.remove("hidden");
 }
 
@@ -670,6 +684,7 @@ document.addEventListener("keydown", function(event) {
 
 </body>
 </html>
+
 
 
 
