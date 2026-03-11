@@ -289,7 +289,7 @@ button:hover{
 <script>
 let balance = 1000; // Starting money
 const winAmount = 500;
-const gambleCost = 25;
+const gambleCost = 15;
 const targetAmount = 5000;
 
 function updateBalanceDisplay(){
@@ -302,7 +302,7 @@ function spin(){
         return;
     }
 
-    balance -= gambleCost; // Pay $10 to play
+    balance -= gambleCost; // Pay $15 to play
     updateBalanceDisplay();
 
     const symbols = ["🍑","🥞","💲","⭐","💎"];
@@ -325,7 +325,8 @@ function spin(){
 }
 
 function startRoom5(){
-    if(balance >= targetAmount){
+    if(balance > targetAmount){
+    if(balance = targetAmount){
         goToRoom("room5");
     }else{
         alert("You need $" + targetAmount + " to enter Room 5. Keep gambling!");
@@ -709,6 +710,7 @@ document.addEventListener("keydown", function(event) {
 
 </body>
 </html>
+
 
 
 
