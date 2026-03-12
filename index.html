@@ -605,16 +605,18 @@ goToRoom("room4");
         return;
     }
 
+    // Subtract the $5000 cost
+    balance -= targetAmount;
+    updateBalanceDisplay(); // update the display so player sees it deducted
+
     goToRoom("room5");
     bossPhase = 1;
 
-    // Remove any old timers first
+    // Start impatient timer
     clearTimeout(bossStillTimer);
-
-    // Start the impatient timer immediately
     bossStillTimer = setTimeout(unlockBossPhase2, 15000);
 
-    // Track player movement/activity to reset timer
+    // Track activity to reset impatient timer
     document.addEventListener("mousemove", resetBossStill);
     document.addEventListener("keydown", resetBossStill);
     document.addEventListener("click", resetBossStill);
@@ -728,6 +730,7 @@ document.addEventListener("keydown", function(event) {
 
 </body>
 </html>
+
 
 
 
