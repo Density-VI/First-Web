@@ -597,7 +597,7 @@ goToRoom("room4");
 };
 
 /* ------------------- FINAL BOSS ------------------- */
-    function startRoom5() {
+  function startRoom5() {
     if(balance < targetAmount){
         alert("You need $" + targetAmount + " to enter Room 5. Keep gambling!");
         return;
@@ -606,11 +606,22 @@ goToRoom("room4");
     goToRoom("room5");
     bossPhase = 1;
 
+    // Remove any old timers first
+    clearTimeout(bossStillTimer);
+
+    // Start the impatient timer immediately
     bossStillTimer = setTimeout(unlockBossPhase2, 15000);
 
+    // Track player movement/activity to reset timer
     document.addEventListener("mousemove", resetBossStill);
     document.addEventListener("keydown", resetBossStill);
     document.addEventListener("click", resetBossStill);
+}
+
+function resetBossStill() {
+    if (bossPhase !== 1) return;
+    clearTimeout(bossStillTimer);
+    bossStillTimer = setTimeout(unlockBossPhase2, 15000);
 }
     
 function unlockBossPhase2() {
@@ -715,6 +726,7 @@ document.addEventListener("keydown", function(event) {
 
 </body>
 </html>
+
 
 
 
