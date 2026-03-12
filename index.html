@@ -598,7 +598,6 @@ goToRoom("room4");
 
 /* ------------------- FINAL BOSS ------------------- */
     function startRoom5() {
-
     if(balance < targetAmount){
         alert("You need $" + targetAmount + " to enter Room 5. Keep gambling!");
         return;
@@ -613,7 +612,7 @@ goToRoom("room4");
     document.addEventListener("keydown", resetBossStill);
     document.addEventListener("click", resetBossStill);
 }
-
+    
 function unlockBossPhase2() {
 
     bossPhase = 2;
@@ -716,6 +715,7 @@ document.addEventListener("keydown", function(event) {
 
 </body>
 </html>
+
 
 
 
