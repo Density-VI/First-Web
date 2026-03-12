@@ -367,14 +367,18 @@ updateBalanceDisplay();
 <!-- LEADERBOARD PAGE -->
 <div id="leaderboardPage" class="room hidden">
     <h1>🏆 Your Best Times!</h1>
+
     <table id="leaderboardTable">
         <tr>
             <th>Rank</th>
             <th>Email</th>
-            <th>Score</th>
+            <th>Time</th>
+            <th>Money</th>
         </tr>
     </table>
+
     <br>
+
     <button onclick="goHome()">Back</button>
     <button onclick="resetLeaderboard()">Reset Leaderboard</button>
 </div>
@@ -650,12 +654,15 @@ function correctChoice() {
 /* ------------------- LEADERBOARD ------------------- */
 function submitScore() {
     let leaderboard = getLeaderboard();
-    leaderboard.push({ email: playerEmail, score: window.playerScore });
+    leaderboard.push({ 
+        email: playerEmail, 
+        score: window.playerScore,
+        money: balance // store the player's money
+    });
     leaderboard.sort((a, b) => parseFloat(a.score) - parseFloat(b.score));
     if (leaderboard.length > 10) leaderboard = leaderboard.slice(0, 10);
     saveLeaderboard(leaderboard);
-    document.getElementById("submitStatus").innerText =
-        "Score Submitted Successfully!";
+    document.getElementById("submitStatus").innerText = "Score Submitted Successfully!";
 }
 
 function showLeaderboard() {
@@ -665,27 +672,27 @@ function showLeaderboard() {
     const leaderboard = getLeaderboard();
     const table = document.getElementById("leaderboardTable");
 
-    table.innerHTML = `<tr><th>Rank</th><th>Email</th><th>Score</th></tr>`;
+    table.innerHTML = `<tr><th>Rank</th><th>Email</th><th>Time</th><th>Money</th></tr>`;
 
     leaderboard.forEach((entry, index) => {
         let row = table.insertRow();
         row.insertCell(0).textContent = index + 1;
         row.insertCell(1).textContent = entry.email;
         row.insertCell(2).textContent = entry.score;
+        row.insertCell(3).textContent = "$" + entry.money;
     });
 }
 
 function resetLeaderboard() {
     let code = prompt("Enter reset code:");
     if (code === "937362") {
-        localStorage.removeItem(LEADERBOARD_KEY);
+        localStorage.removeItem("escapeRoomLeaderboard");
         alert("Leaderboard has been reset.");
         showLeaderboard();
     } else {
         alert("Incorrect code.");
     }
 }
-
 function goHome() {
     location.reload();
 }
@@ -709,6 +716,7 @@ document.addEventListener("keydown", function(event) {
 
 </body>
 </html>
+
 
 
 
