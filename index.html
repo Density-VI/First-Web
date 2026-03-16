@@ -300,7 +300,7 @@ function updateBalanceDisplay(){
 function spin(){
     if(balance < gambleCost){
         alert("Reload your page you suk at gambling");
-        return;
+        goToRoom("room1");
     }
 
     balance -= gambleCost; // Pay $15 to play
