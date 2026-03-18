@@ -699,7 +699,7 @@ function wrongChoice() {
 function correctChoice() {
     let finalTime = stopTimer();
     window.playerScore = finalTime;
-    goToRoom("finishPage");
+    goToRoom("room6");
     document.getElementById("finalTime").innerText =
         "Your Time: " + finalTime + " seconds";
 }
