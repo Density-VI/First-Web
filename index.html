@@ -299,9 +299,14 @@ function updateBalanceDisplay(){
 
 function spin(){
     if(balance < gambleCost){
-        alert("Reload your page you suk at gambling");
-        goToRoom("room1");
-    }
+    alert("You're broke! Back to Room 1... (+$100)");
+
+    balance = 100; // give them $100 again
+    updateBalanceDisplay(); // update UI
+
+    goToRoom("room1");
+    return; // stop the function so it doesn’t continue
+}
 
     balance -= gambleCost; // Pay $15 to play
     updateBalanceDisplay();
