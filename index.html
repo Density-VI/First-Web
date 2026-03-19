@@ -381,7 +381,8 @@ updateBalanceDisplay();
 
 <script>
 function goToRoom(room) {
-    // your room change code here
+        let finalTime = stopTimer();
+    window.playerScore = finalTime;
 
     document.getElementById("finalTime").innerText =
         "Your Time: " + finalTime + " seconds";
@@ -689,8 +690,6 @@ function wrongChoice() {
 }
 
 function correctChoice() {
-    let finalTime = stopTimer();
-    window.playerScore = finalTime;
     goToRoom("room6");
 }
 
