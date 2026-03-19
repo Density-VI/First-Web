@@ -372,20 +372,26 @@ updateBalanceDisplay();
 
     <button onclick="goToRoom('room7')">Continue</button>
 </div>
-    room 7
 
-<div id="room7" class="room hidden">
-    <h1>Room 7</h1>
-    <p>One last step before the final challenge.</p>
-<button onclick="goToRoom('finishPage')">Test</button> 
+function goToRoom(nextRoomId) {
 
-<script>
-function goToRoom(room) {
+    clearTimeout(inactivityTimer);
+
+    // ✅ STOP TIMER when reaching finish page
+    if(nextRoomId === "finishPage"){
         let finalTime = stopTimer();
-    window.playerScore = finalTime;
+        window.playerScore = finalTime;
 
-    document.getElementById("finalTime").innerText =
-        "Your Time: " + finalTime + " seconds";
+        document.getElementById("finalTime").innerText =
+            "Your Time: " + finalTime + " seconds";
+    }
+
+    document.querySelectorAll(".room").forEach(r => r.classList.add("hidden"));
+    document.getElementById(nextRoomId).classList.remove("hidden");
+
+    if(nextRoomId === "room3"){
+        enterRoom3();
+    }
 }
 </script>
 </div>
