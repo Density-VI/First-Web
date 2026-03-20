@@ -790,6 +790,47 @@ function checkRoom6(){
         alert("Wrong code...");
     }
 }
+    let room7TimerInterval;
+let room7TimeLeft = 60; // 1 minute countdown
+
+function startRoom7Countdown() {
+    const countdownDisplay = document.getElementById("room7Countdown");
+    room7TimeLeft = 60; // reset to 1 minute
+
+    // Clear any previous interval
+    clearInterval(room7TimerInterval);
+
+    room7TimerInterval = setInterval(() => {
+        let minutes = Math.floor(room7TimeLeft / 60);
+        let seconds = room7TimeLeft % 60;
+
+        countdownDisplay.textContent =
+            (minutes < 10 ? "0" : "") + minutes + ":" +
+            (seconds < 10 ? "0" : "") + seconds;
+
+        if (room7TimeLeft <= 0) {
+            clearInterval(room7TimerInterval);
+            countdownDisplay.textContent = "TIME'S UP!";
+            alert("The final countdown ended! Hurry!");
+            // Optionally, you could auto-finish or add a penalty here
+        }
+
+        room7TimeLeft--;
+    }, 1000);
+}
+
+// Start countdown when entering Room 7
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.target.id === "room7" && !mutation.target.classList.contains("hidden")) {
+            startRoom7Countdown();
+        }
+    });
+});
+
+// Observe changes to Room 7 visibility
+observer.observe(document.getElementById("room7"), { attributes: true, attributeFilter: ["class"] });
+    
 </script>
 
 </body>
