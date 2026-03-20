@@ -771,37 +771,24 @@ document.addEventListener("keydown", function(event) {
 
 
 
-    /* ================= ROOM 6 SECRET SYSTEM ================= */
+  /* ========= ROOM 6 CONSOLE PUZZLE ========= */
 
-// Hidden pieces (different disguises)
-const _p1 = "74"; // also hinted in HTML comment
-const _x9 = "62"; // normal variable (harder to notice)
-const _z3 = atob("Mw=="); // "3" (encoded 👀)
+// Sneaky console hint (looks like dev stuff)
+console.log("dev_mode:", [162, 734, 962].join(""));
 
-// Sneaky CSS injection (so it's still "inspectable")
-const style = document.createElement("style");
-style.innerHTML = `
-body::before {
-    content: "53";
-    display: none;
-}
-`;
-document.head.appendChild(style);
+// Optional extra hint (faint text)
+console.log("%cNothing is shown. Everything is logged.", "color: gray; font-size: 12px;");
 
-// Fake hint to guide players (optional but cool)
-console.log("%cNothing is given. Everything is hidden.", "color: gray; font-size: 12px;");
-
-// Final check function
+// Check function for Room 6
 function checkRoom6(){
-    let input = document.getElementById("room6Code").value;
+    const input = document.getElementById("room6Code").value;
 
-    // Build the real code from hidden parts
-    const realCode = _p1 + "53" + _x9 + _z3;
+    const realCode = "162734962";
 
     if(input === realCode){
         goToRoom("room7");
     } else {
-        alert("You're missing pieces...");
+        alert("Wrong code...");
     }
 }
 </script>
