@@ -411,7 +411,6 @@ updateBalanceDisplay();
     <h1>YOU ESCAPED</h1>
     <h2 id="finalTime"></h2>
     <button onclick="submitScore()">Submit Score</button>
-    goToRoom("leaderboardPage");
     <p id="submitStatus"></p>
 </div>
 
@@ -739,36 +738,37 @@ function finishGame() {
     
 /* ------------------- LEADERBOARD ------------------- */
 function submitScore() {
+
     let leaderboard = getLeaderboard();
+
+    // add player score
     leaderboard.push({ 
         email: playerEmail, 
         score: window.playerScore,
-        money: balance // store the player's money
+        money: balance
     });
+
+    // sort by fastest time
     leaderboard.sort((a, b) => parseFloat(a.score) - parseFloat(b.score));
-    if (leaderboard.length > 10) leaderboard = leaderboard.slice(0, 10);
+
+    // keep top 10 only
+    if (leaderboard.length > 10) {
+        leaderboard = leaderboard.slice(0, 10);
+    }
+
+    // save to local storage
     saveLeaderboard(leaderboard);
-    document.getElementById("submitStatus").innerText = "Score Submitted Successfully!";
+
+    // show message
+    document.getElementById("submitStatus").innerText =
+        "Score Submitted Successfully!";
+
+    // ⏳ small delay, then go to leaderboard
+    setTimeout(() => {
+        showLeaderboard();
+    }, 1000);
 }
-
-function showLeaderboard() {
-    document.querySelectorAll(".room").forEach(r => r.classList.add("hidden"));
-    document.getElementById("leaderboardPage").classList.remove("hidden");
-
-    const leaderboard = getLeaderboard();
-    const table = document.getElementById("leaderboardTable");
-
-    table.innerHTML = `<tr><th>Rank</th><th>Email</th><th>Time</th><th>Money</th></tr>`;
-
-    leaderboard.forEach((entry, index) => {
-        let row = table.insertRow();
-        row.insertCell(0).textContent = index + 1;
-        row.insertCell(1).textContent = entry.email;
-        row.insertCell(2).textContent = entry.score;
-        row.insertCell(3).textContent = "$" + entry.money;
-    });
-}
-
+    
 function resetLeaderboard() {
     let code = prompt("Enter reset code:");
     if (code === "937362") {
