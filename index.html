@@ -535,18 +535,12 @@ function goToRoom(nextRoomId) {
 
         startRoom7Countdown();
 
-        clearTimeout(adTimeout);
-
-        adTimeout = setTimeout(() => {
+        setTimeout(() => {
             showFakeAd();
         }, 3000);
 
-    } else {
-        clearInterval(room7TimerInterval);
-        clearTimeout(adTimeout);
     }
 }
-
 /* ------------------- ROOM 3 PUZZLE ------------------- */
 const game = document.getElementById("game");
 const blocks = document.querySelectorAll(".block");
