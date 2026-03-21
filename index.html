@@ -535,17 +535,21 @@ function goToRoom(nextRoomId) {
         enterRoom3();
     }
 
-    // ✅ ROOM 7 SPECIAL LOGIC
-  if(nextRoomId === "room7"){
-    startRoom7Countdown();
+    // ✅ ROOM 7 LOGIC
+    if(nextRoomId === "room7"){
 
-    // ⏳ wait 3 seconds before showing ad
-    setTimeout(() => {
-        showFakeAd();
-    }, 3000);
+        startRoom7Countdown();
 
-} else {
-    clearInterval(room7TimerInterval);
+        clearTimeout(adTimeout);
+
+        adTimeout = setTimeout(() => {
+            showFakeAd();
+        }, 3000);
+
+    } else {
+        clearInterval(room7TimerInterval);
+        clearTimeout(adTimeout);
+    }
 }
 
 /* ------------------- ROOM 3 PUZZLE ------------------- */
