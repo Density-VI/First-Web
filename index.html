@@ -850,6 +850,26 @@ const observer = new MutationObserver((mutations) => {
 
 // Observe changes to Room 7 visibility
 observer.observe(document.getElementById("room7"), { attributes: true, attributeFilter: ["class"] });
+
+    function showFakeAd() {
+
+    const ad = document.getElementById("fakeAd");
+    const adTimerText = document.getElementById("adTimer");
+
+    ad.style.display = "flex";
+
+    let timeLeft = 3;
+
+    const adInterval = setInterval(() => {
+        timeLeft--;
+        adTimerText.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+            clearInterval(adInterval);
+            ad.style.display = "none";
+        }
+    }, 1000);
+}
     
 </script>
 
