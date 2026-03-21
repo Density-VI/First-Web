@@ -531,12 +531,16 @@ function goToRoom(nextRoomId) {
     }
 
     // ✅ ROOM 7 SPECIAL LOGIC
-    if(nextRoomId === "room7"){
-        startRoom7Countdown();
-        showFakeAd(); // 👈 THIS IS YOUR "AD"
-    } else {
-        clearInterval(room7TimerInterval); // stop countdown if leaving
-    }
+  if(nextRoomId === "room7"){
+    startRoom7Countdown();
+
+    // ⏳ wait 3 seconds before showing ad
+    setTimeout(() => {
+        showFakeAd();
+    }, 3000);
+
+} else {
+    clearInterval(room7TimerInterval);
 }
 
 /* ------------------- ROOM 3 PUZZLE ------------------- */
