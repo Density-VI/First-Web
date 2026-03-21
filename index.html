@@ -521,13 +521,21 @@ function checkAnswer() {
 /* ------------------- ROOM NAVIGATION ------------------- */
 function goToRoom(nextRoomId) {
 
-    clearTimeout(inactivityTimer); // stop room1 idle timer
+    clearTimeout(inactivityTimer);
 
     document.querySelectorAll(".room").forEach(r => r.classList.add("hidden"));
     document.getElementById(nextRoomId).classList.remove("hidden");
 
     if(nextRoomId === "room3"){
         enterRoom3();
+    }
+
+    // ✅ ROOM 7 SPECIAL LOGIC
+    if(nextRoomId === "room7"){
+        startRoom7Countdown();
+        showFakeAd(); // 👈 THIS IS YOUR "AD"
+    } else {
+        clearInterval(room7TimerInterval); // stop countdown if leaving
     }
 }
 
