@@ -889,6 +889,43 @@ observer.observe(document.getElementById("room7"), { attributes: true, attribute
         }
     }, 1000);
 }
+    /* ===== VAULT DIAL LOGIC FOR ROOM 7 ===== */
+let vaultCombination = [1,6,2,7,3,4,9,6,2]; // Room 6 code
+let currentVaultInput = [];
+let dialAngle = 0;
+
+const dial = document.getElementById("dial");
+const pointer = document.getElementById("dialPointer");
+const display = document.getElementById("vaultInputDisplay");
+const vaultBtn = document.getElementById("vaultSubmitBtn");
+
+// Rotate dial by clicking
+dial.addEventListener("click", () => {
+    // Each click rotates 40 degrees and adds a number 1-9
+    dialAngle += 40;
+    pointer.style.transform = `translateX(-50%) rotate(${dialAngle}deg)`;
+    
+    let number = ((Math.floor(dialAngle/40) % 9) + 1);
+    if(currentVaultInput.length < vaultCombination.length){
+        currentVaultInput.push(number);
+    }
+    display.textContent = currentVaultInput.join("");
+});
+
+// Submit vault code
+vaultBtn.addEventListener("click", () => {
+    if(currentVaultInput.join("") === vaultCombination.join("")){
+        alert("Vault unlocked! You may proceed.");
+        finishGame(); // or goToRoom("finishPage") if you want
+    } else {
+        alert("Wrong combination! Resetting dial.");
+        currentVaultInput = [];
+        dialAngle = 0;
+        pointer.style.transform = `translateX(-50%) rotate(0deg)`;
+        display.textContent = "---";
+    }
+});
+    
     
 </script>
 
