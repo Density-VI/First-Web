@@ -893,25 +893,33 @@ let vaultInitialized = false;
 
 function initVault(){
 
-    if(vaultInitialized) return; // prevents double setup
+    if(vaultInitialized) return;
     vaultInitialized = true;
 
     let vaultCombination = [1,6,2,7,3,4,9,6,2];
     let currentVaultInput = [];
 
     let currentNumber = 1;
-    let dialAngle = 0;
+    let angle = 0;
 
-    const dial = document.getElementById("dial");
-    const pointer = document.getElementById("dialPointer");
+    const dialNumbers = document.getElementById("dialNumbers");
     const display = document.getElementById("vaultInputDisplay");
     const currentNumDisplay = document.getElementById("currentNumber");
     const lockBtn = document.getElementById("lockNumberBtn");
 
-    if(!dial) return; // safety check
+    // CREATE NUMBERS IN CIRCLE
+    for(let i=1;i<=9;i++){
+        let num = document.createElement("div");
+        num.className = "number";
+        num.innerText = i;
 
-    // Scroll control
-    dial.addEventListener("wheel", (e) => {
+        let deg = (i-1)*(360/9);
+        num.style.transform = `rotate(${deg}deg) translateY(-100px) rotate(-${deg}deg)`;
+
+        dialNumbers.appendChild(num);
+    }
+
+    document.getElementById("dial").addEventListener("wheel", (e)=>{
         e.preventDefault();
 
         if(e.deltaY > 0){
@@ -923,14 +931,13 @@ function initVault(){
         if(currentNumber > 9) currentNumber = 1;
         if(currentNumber < 1) currentNumber = 9;
 
-        dialAngle = (currentNumber - 1) * 40;
-        pointer.style.transform = `translateX(-50%) rotate(${dialAngle}deg)`;
+        angle = -(currentNumber-1)*(360/9);
+        dialNumbers.style.transform = `rotate(${angle}deg)`;
 
         currentNumDisplay.textContent = currentNumber;
     });
 
-    // Lock number
-    lockBtn.addEventListener("click", () => {
+    lockBtn.addEventListener("click", ()=>{
 
         if(currentVaultInput.length >= vaultCombination.length) return;
 
