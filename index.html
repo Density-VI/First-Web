@@ -388,24 +388,32 @@ updateBalanceDisplay();
     <div id="vaultContainer" style="margin-top:30px;">
 
         <div id="dial" style="
-            width:220px;
-            height:220px;
+            width:240px;
+            height:240px;
             border:8px solid gold;
             border-radius:50%;
             margin:auto;
             position:relative;
             background:#222;
+            overflow:hidden;
         ">
+
+            <!-- Rotating numbers -->
+            <div id="dialNumbers"></div>
+
+            <!-- Pointer -->
             <div id="dialPointer" style="
                 width:4px;
-                height:100px;
+                height:110px;
                 background:red;
                 position:absolute;
-                top:0;
+                top:10px;
                 left:50%;
                 transform:translateX(-50%);
                 transform-origin: bottom center;
+                z-index:2;
             "></div>
+
         </div>
 
         <p>Selected Number: <span id="currentNumber">1</span></p>
