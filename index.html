@@ -545,14 +545,18 @@ function goToRoom(nextRoomId) {
 
     clearTimeout(inactivityTimer);
 
+    // Hide all rooms
     document.querySelectorAll(".room").forEach(r => r.classList.add("hidden"));
+
+    // Show selected room
     document.getElementById(nextRoomId).classList.remove("hidden");
 
+    // ROOM 3 SETUP
     if(nextRoomId === "room3"){
         enterRoom3();
     }
 
-    // ✅ ROOM 7 LOGIC
+    // ✅ ROOM 7 FULL SETUP (COUNTDOWN + AD + VAULT)
     if(nextRoomId === "room7"){
 
         startRoom7Countdown();
@@ -561,6 +565,7 @@ function goToRoom(nextRoomId) {
             showFakeAd();
         }, 3000);
 
+        initVault(); // 👈 THIS FIXES YOUR VAULT ISSUE
     }
 }
 /* ------------------- ROOM 3 PUZZLE ------------------- */
