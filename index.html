@@ -896,55 +896,52 @@ observer.observe(document.getElementById("room7"), { attributes: true, attribute
         }
     }, 1000);
 }
-// ===== VAULT DIAL TWIST LOGIC =====
-let vaultCombination = [1,6,2,7,3,4,9,6,2]; // Room 6 code
+let vaultCombination = [1,6,2,7,3,4,9,6,2];
 let currentVaultInput = [];
-let dialAngle = 0;
-let dragging = false;
-let startY = 0;
 
-const dial = document.getElementById("dial");
+let currentNumber = 1;
+let dialAngle = 0;
+
 const pointer = document.getElementById("dialPointer");
 const display = document.getElementById("vaultInputDisplay");
+const currentNumDisplay = document.getElementById("currentNumber");
 const lockBtn = document.getElementById("lockNumberBtn");
 
-// Drag to rotate
-dial.addEventListener("mousedown", (e) => {
-    dragging = true;
-    startY = e.clientY;
-});
+// Scroll to rotate (MUCH smoother than drag)
+document.getElementById("dial").addEventListener("wheel", (e) => {
+    e.preventDefault();
 
-document.addEventListener("mousemove", (e) => {
-    if (!dragging) return;
-    let deltaY = e.clientY - startY;
-    dialAngle += deltaY * 0.5; // sensitivity
+    if(e.deltaY > 0){
+        currentNumber++;
+    } else {
+        currentNumber--;
+    }
+
+    if(currentNumber > 9) currentNumber = 1;
+    if(currentNumber < 1) currentNumber = 9;
+
+    dialAngle = (currentNumber - 1) * 40;
     pointer.style.transform = `translateX(-50%) rotate(${dialAngle}deg)`;
-    startY = e.clientY;
-});
 
-document.addEventListener("mouseup", () => {
-    dragging = false;
+    currentNumDisplay.textContent = currentNumber;
 });
 
 // Lock number
 lockBtn.addEventListener("click", () => {
+
     if(currentVaultInput.length >= vaultCombination.length) return;
 
-    // Map dialAngle to number 1-9
-    let number = (((Math.round(dialAngle / 40)) % 9) + 9) % 9 + 1; // handles negative rotation
-    currentVaultInput.push(number);
+    currentVaultInput.push(currentNumber);
     display.textContent = currentVaultInput.join("");
 
     if(currentVaultInput.length === vaultCombination.length){
-        // Check combination
+
         if(currentVaultInput.join("") === vaultCombination.join("")){
-            alert("Vault unlocked! You may proceed.");
-            finishGame(); // or goToRoom("finishPage")
+            alert("Vault unlocked!");
+            finishGame();
         } else {
-            alert("Wrong combination! Dial resets.");
+            alert("Wrong combination!");
             currentVaultInput = [];
-            dialAngle = 0;
-            pointer.style.transform = `translateX(-50%) rotate(0deg)`;
             display.textContent = "---";
         }
     }
