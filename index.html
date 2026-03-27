@@ -881,56 +881,67 @@ const observer = new MutationObserver((mutations) => {
     });
 });
 
-let vaultCombination = [1,6,2,7,3,4,9,6,2];
-let currentVaultInput = [];
+let vaultInitialized = false;
 
-let currentNumber = 1;
-let dialAngle = 0;
+function initVault(){
 
-const pointer = document.getElementById("dialPointer");
-const display = document.getElementById("vaultInputDisplay");
-const currentNumDisplay = document.getElementById("currentNumber");
-const lockBtn = document.getElementById("lockNumberBtn");
+    if(vaultInitialized) return; // prevents double setup
+    vaultInitialized = true;
 
-// Scroll to rotate (MUCH smoother than drag)
-document.getElementById("dial").addEventListener("wheel", (e) => {
-    e.preventDefault();
+    let vaultCombination = [1,6,2,7,3,4,9,6,2];
+    let currentVaultInput = [];
 
-    if(e.deltaY > 0){
-        currentNumber++;
-    } else {
-        currentNumber--;
-    }
+    let currentNumber = 1;
+    let dialAngle = 0;
 
-    if(currentNumber > 9) currentNumber = 1;
-    if(currentNumber < 1) currentNumber = 9;
+    const dial = document.getElementById("dial");
+    const pointer = document.getElementById("dialPointer");
+    const display = document.getElementById("vaultInputDisplay");
+    const currentNumDisplay = document.getElementById("currentNumber");
+    const lockBtn = document.getElementById("lockNumberBtn");
 
-    dialAngle = (currentNumber - 1) * 40;
-    pointer.style.transform = `translateX(-50%) rotate(${dialAngle}deg)`;
+    if(!dial) return; // safety check
 
-    currentNumDisplay.textContent = currentNumber;
-});
+    // Scroll control
+    dial.addEventListener("wheel", (e) => {
+        e.preventDefault();
 
-// Lock number
-lockBtn.addEventListener("click", () => {
-
-    if(currentVaultInput.length >= vaultCombination.length) return;
-
-    currentVaultInput.push(currentNumber);
-    display.textContent = currentVaultInput.join("");
-
-    if(currentVaultInput.length === vaultCombination.length){
-
-        if(currentVaultInput.join("") === vaultCombination.join("")){
-            alert("Vault unlocked!");
-            finishGame();
+        if(e.deltaY > 0){
+            currentNumber++;
         } else {
-            alert("Wrong combination!");
-            currentVaultInput = [];
-            display.textContent = "---";
+            currentNumber--;
         }
-    }
-});
+
+        if(currentNumber > 9) currentNumber = 1;
+        if(currentNumber < 1) currentNumber = 9;
+
+        dialAngle = (currentNumber - 1) * 40;
+        pointer.style.transform = `translateX(-50%) rotate(${dialAngle}deg)`;
+
+        currentNumDisplay.textContent = currentNumber;
+    });
+
+    // Lock number
+    lockBtn.addEventListener("click", () => {
+
+        if(currentVaultInput.length >= vaultCombination.length) return;
+
+        currentVaultInput.push(currentNumber);
+        display.textContent = currentVaultInput.join("");
+
+        if(currentVaultInput.length === vaultCombination.length){
+
+            if(currentVaultInput.join("") === vaultCombination.join("")){
+                alert("Vault unlocked!");
+                finishGame();
+            } else {
+                alert("Wrong combination!");
+                currentVaultInput = [];
+                display.textContent = "---";
+            }
+        }
+    });
+}
     
 </script>
 
