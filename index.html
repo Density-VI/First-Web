@@ -851,7 +851,7 @@ function checkRoom6(){
         alert("Wrong code...");
     }
 }
-  <script>
+  // ===== ROOM 7 PUZZLE INTEGRATION =====
 let room7TimerInterval;
 let room7TimeLeft = 60;
 let vaultInitialized = false;
@@ -870,7 +870,7 @@ function initVault(){
     const currentNumDisplay = document.getElementById("currentNumber");
     const lockBtn = document.getElementById("lockNumberBtn");
 
-    // create numbers around circle
+    // create numbers in circle
     for(let i=1;i<=9;i++){
         let num = document.createElement("div");
         num.className = "number";
@@ -891,7 +891,7 @@ function initVault(){
     });
 
     lockBtn.addEventListener("click", ()=>{
-        currentNumDisplay.style.color = "orange"; // just visual, does nothing
+        currentNumDisplay.style.color = "orange"; // purely visual, does nothing
     });
 }
 
@@ -900,7 +900,7 @@ function room7RoomClick(roomNum){
     clearTimeout(room7SequenceTimeout);
     room7Sequence.push(roomNum);
 
-    // 1-second timeout to move to last clicked room
+    // 1-second timeout: move player to last clicked room
     room7SequenceTimeout = setTimeout(()=>{
         goToRoom("room"+roomNum);
         room7Sequence = [];
@@ -910,7 +910,7 @@ function room7RoomClick(roomNum){
     for(let i=0;i<room7Sequence.length;i++){
         if(room7Sequence[i] !== room7Code[i]){
             room7Sequence = [];
-            goToRoom("room1"); // silently send back
+            goToRoom("room1"); // silently reset
             return;
         }
     }
@@ -946,7 +946,7 @@ function startRoom7Countdown(){
         if(room7TimeLeft<=0){
             clearInterval(room7TimerInterval);
             countdownDisplay.textContent="TIME'S UP!";
-            goToRoom("room1"); // silently send back
+            goToRoom("room1"); // silently reset
         }
 
         room7TimeLeft--;
@@ -959,7 +959,7 @@ function setupRoom7(){
     initVault();
 }
 
-// call setupRoom7 when Room 7 becomes visible
+// trigger setupRoom7 when Room 7 becomes visible
 const observer = new MutationObserver((mutations)=>{
     mutations.forEach(m=>{
         if(m.target.id==="room7" && !m.target.classList.contains("hidden")){
@@ -968,7 +968,6 @@ const observer = new MutationObserver((mutations)=>{
     });
 });
 observer.observe(document.body, {attributes:true, subtree:true});
-</script>
     
 </script>
 
