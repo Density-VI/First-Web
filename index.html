@@ -752,6 +752,7 @@ function correctChoice() {
 }
     
 /* ------------------- FINISH GAME ------------------- */
+    let FinishPageSequenceTimeout;
 function finishGame() {
 
     // stop timer
@@ -765,11 +766,14 @@ function finishGame() {
         "Your Time: " + finalTime + " seconds";
 
     // go to finish page
-    goToRoom("finishPage");
+    setTimeout(()=>{
+        goToRoom("finishPage");
+        room7Sequence = [];
+    }, 3000);
 }
     
 /* ------------------- LEADERBOARD ------------------- */
-function submitScore() {
+function submitScore() 
     let leaderboard = getLeaderboard();
     leaderboard.push({ 
         email: playerEmail, 
