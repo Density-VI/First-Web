@@ -793,9 +793,9 @@ function showLeaderboard() {
     leaderboard.forEach((entry, index) => {
         let row = table.insertRow();
         row.insertCell(0).textContent = index + 1;
-        row.insertCell(1).textContent = entry.email;
-        row.insertCell(2).textContent = entry.score;
-        row.insertCell(3).textContent = "$" + entry.money;
+        row.insertCell(1).textContent = entry.Name;
+        row.insertCell(2).textContent = entry.Time;
+        row.insertCell(3).textContent = "$" + entry.MONEY$$$$$;
     });
 }
 
