@@ -771,9 +771,9 @@ function finishGame() {
 function submitScore() {
     let leaderboard = getLeaderboard();
     leaderboard.push({ 
-        email: playerEmail, 
-        score: window.playerScore,
-        money: balance // store the player's money
+        Name: playerEmail, 
+        Time: window.playerScore,
+        MONEY$$$$: balance // store the player's money
     });
     leaderboard.sort((a, b) => parseFloat(a.score) - parseFloat(b.score));
     if (leaderboard.length > 10) leaderboard = leaderboard.slice(0, 10);
