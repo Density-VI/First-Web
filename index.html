@@ -788,7 +788,7 @@ function showLeaderboard() {
     const leaderboard = getLeaderboard();
     const table = document.getElementById("leaderboardTable");
 
-    table.innerHTML = `<tr><th>Rank</th><th>Email</th><th>Time</th><th>Money</th></tr>`;
+    table.innerHTML = `<tr><th>Rank</th><th>Name</th><th>Time</th><th>Money</th></tr>`;
 
     leaderboard.forEach((entry, index) => {
         let row = table.insertRow();
